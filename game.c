@@ -4,6 +4,10 @@ void showboard(int n, char board[n][n]);
 int makemove(int n, char board[n][n], int row, int col, char player);
 int checkwin(int n, char board[n][n], char player);
 int checkdraw(int n, char board[n][n]);
+void computerMove(int n, char board[n][n], char player, FILE *f);
+void logMove(FILE *f, char player, int row, int col);
+
+
 
 int main()  {
     int ch;
@@ -100,3 +104,38 @@ int checkwin(int n, char board[n][n], char player){
     //cheack No one is win 
     return 0;
 } 
+
+    //check game is draw 
+int checkdraw(int n, char board[n][n]){
+    int i,j;
+    for(i =0;i<n;i++){
+        for(j=0;j<n;j++){
+            if(board[i][j] == ' '){
+            return 1;
+             }
+        }
+    }
+    return 0;
+}
+
+//get computer move function
+
+void computerMove(int n, char board[n][n], char player, FILE *f){
+    int row,col;
+    row = rand() % n;
+    col = rand() % n;
+    for(;;)
+    if(board[row][col] == ' '){
+        board[row][col] = player;
+        break;
+    } else{
+        row = rand() % n;
+        col = rand() % n;
+
+    } 
+
+}
+//create fuction for Record every valid move
+void logMove(FILE *f, char player, int row, int col){
+    fprintf(f,"Player %c is move ---- (%d,%d)\n",player,row,col);
+}
