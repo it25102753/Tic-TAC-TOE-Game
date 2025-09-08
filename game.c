@@ -19,10 +19,33 @@ int main()  {
     printf("Enter your  choice : ");
     scanf("%d", &ch);
 
-    if(ch < 1 || ch > 3){
-        printf("re - Enter your  choice : ");
-        scanf("%d", &ch);
+        for(;;){
+        if(ch >= 1 && ch <= 3){
+                break;
+            } else {
+                printf("re - Enter your  choice : ");
+                scanf("%d", &ch);
+            }
+        }
+    //user vs user game code
+    if(ch == 1){
+
+
+
     }
+
+    //player vs computer game code
+    if(ch == 2){
+
+
+    }
+
+    //multi player game code
+    if(ch == 3){
+
+
+    }
+
 }
 	//Show board in display function
 void sheowboard(int n , char board[n][n]){
