@@ -105,7 +105,7 @@ int main()  {
 
 }
 	//Show board in display function
-void sheowboard(int n , char board[n][n]) {
+void showboard(int n , char board[n][n]) {
     int i , j;
     printf("\n");
     for(i=0;i<n;i++){
