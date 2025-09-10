@@ -29,8 +29,65 @@ int main()  {
         }
     //user vs user game code
     if(ch == 1){
+        printf("Enter the board size 3 -10 :");
+        scanf("%d",&n);
+    
+        for(;;){
+            if(n >= 3 && n <= 10){
+                break;
+            } else {
+                printf("Re enter size 3 - 10 : ");
+                scanf("%d", &n);
+            }
+        }
 
+        char board[n][n];
+        int i, j;
 
+        char currentplayer  = 'X';
+        int row, col;
+        int game_over = 1;
+
+    while(game_over){
+        showboard(n, board);
+        FILE *f = fopen("game_log_user_vs_User.txt", "w");
+
+        printf("player %c enter your move row col - please add space : ",currentplayer);
+        scanf("%d %d",&row,&col);
+
+        for(;;){
+            if(row >= 1 && row <= n && col <=1,col <= n){
+                break;
+            } else {
+                printf("player %c Re - enter your move row col - please add space : ",currentplayer);
+                scanf("%d %d",&row,&col);
+            }
+        }
+
+        if(!makemove(n, board, row -1,col-1,currentplayer)){
+            printf("sell already taken Try again.\n");
+            continue;
+        }
+
+        logMove(f,currentplayer,row,col);
+        if(checkwin(n, board, currentplayer)){
+            showboard(n, board);
+            printf("player %c win the game \n",currentplayer);
+            game_over = 0;
+        } else if(checkdraw(n,board)){
+            showboard(n,board);
+            printf("game is draw \n");
+            game_over = 0;
+
+        }
+        else if(currentplayer == 'X'){
+            currentplayer = 'O';
+        } else {
+            currentplayer = 'X';
+        }
+        fclose(f);
+        }
+        return 0;
 
     }
 
@@ -48,7 +105,7 @@ int main()  {
 
 }
 	//Show board in display function
-void sheowboard(int n , char board[n][n]){
+void sheowboard(int n , char board[n][n]) {
     int i , j;
     printf("\n");
     for(i=0;i<n;i++){
