@@ -93,7 +93,57 @@ int main()  {
 
     //player vs computer game code
     if(ch == 2){
+	        printf("Enter the board size 3 -10 :");
+        scanf("%d",&n);
 
+        for(;;){
+            if(n >= 3 && n <= 10){
+                break;
+            } else {
+                printf("Re enter size 3 - 10 : ");
+                scanf("%d", &n);
+            }
+        }
+        char board[n][n];
+        int i, j;
+        char currentplayer  = 'X';
+        int row, col;
+        int game_over = 1;
+        
+
+        while(game_over){
+            showboard(n, board);
+            FILE *f = fopen("game_log_user_vs_computer.txt", "w");
+            
+            printf("enter your move row col - please add space : ");
+            scanf("%d %d",&row,&col);
+
+            for(;;){
+                if(row >= 1 && row <= n && col <=1,col <= n){
+                    break;
+                } else {
+                    printf("Re - enter your move row col - please add space : ");
+                    scanf("%d %d",&row,&col);
+                }
+            }
+
+            if(!makemove(n,board,row-1,col-1,currentplayer)){
+                printf("sell already taken try again \n");
+                continue;
+            }
+            if(checkwin(n,board,currentplayer)){
+                showboard(n,board);
+                printf("palyer %c win the game \n,currentplayer");
+                game_over = 0;
+                
+
+            }
+
+
+
+
+
+        }
 
     }
 
