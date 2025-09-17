@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 void showboard(int n, char board[n][n]);
 int makemove(int n, char board[n][n], int row, int col, char player);
@@ -133,19 +134,19 @@ int main()  {
             }
             if(checkwin(n,board,currentplayer)){
                 showboard(n,board);
-                printf("palyer %c win the game \n,currentplayer");
+                printf("palyer %c win the game \n",currentplayer);
                 game_over = 0;
             }
              else if(checkdraw(n, board)) {
-            show_board(n,board);
+            showboard(n,board);
             printf("It's  a draw!\n");
             game_over = 0;
                  } else {
             //change the_player
-                if(currentPlayer == 'X'){
-                    currentPlayer = 'O';
+                if(currentplayer == 'X'){
+                    currentplayer = 'O';
                  } else {
-                    currentPlayer = 'X';
+                    currentplayer = 'X';
                 }
             }
         }
