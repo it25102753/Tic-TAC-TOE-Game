@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Tic-Tac-Toe Game</title>
 </head>
 <body style="font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: auto;">
 
@@ -31,7 +30,7 @@
   <h2>⚙️ How to Run</h2>
   <ol>
     <li>Clone the repository:</li>
-    <pre><code>git clone https://github.com/yourusername/Tic-Tac-Toe-Game.git</code></pre>
+    <pre><code>git clone https://github.com/it25102753/Tic-TAC-TOE-Game.git</code></pre>
     <li>Navigate into the project folder:</li>
     <pre><code>cd Tic-Tac-Toe-Game</code></pre>
     <li>Compile the code:</li>
