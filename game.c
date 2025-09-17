@@ -135,24 +135,106 @@ int main()  {
                 showboard(n,board);
                 printf("palyer %c win the game \n,currentplayer");
                 game_over = 0;
-                
-
             }
-
-
-
-
-
+             else if(checkdraw(n, board)) {
+            show_board(n,board);
+            printf("It's  a draw!\n");
+            game_over = 0;
+                 } else {
+            //change the_player
+                if(currentPlayer == 'X'){
+                    currentPlayer = 'O';
+                 } else {
+                    currentPlayer = 'X';
+                }
+            }
         }
-
     }
 
     //multi player game code
     if(ch == 3){
+    int n;
+    int i,j;
 
+    #define PLAYER1 'X'
+    #define PLAYER2 'O'
+    #define PLAYER3 'Z'
 
+        
+    printf("Enter  the board size (3 to %d): ",10);
+    scanf("%d",&n);
+
+    for(;;){
+        if(n >=3 && n <= 10){
+            break;
+
+        }
+        else{
+            printf("Re enter board size 3 - 10 :");
+            scanf("%d",&n);
+        }
     }
 
+    char board[n][n];
+
+    for(i = 0; i < n; i++)   {
+        for(j = 0; j < n; j++) {
+            board[i][j] = ' ';
+             }
+        }
+    FILE *f = fopen("game_log_multi_ply.txt", "w");
+
+    int turn = 0;
+    int row, col;
+    int game_over =1;
+
+    char currentPlayer;
+        if (turn == 0)
+            currentPlayer = PLAYER1;
+        if(turn == 1)
+            currentPlayer = PLAYER2;
+        if(turn == 2)
+            currentPlayer = PLAYER3;
+
+        if(currentPlayer == PLAYER1){
+            printf("Player %c, enter your move row col - please add space ", currentPlayer);
+            scanf("%d %d",&row,&col);
+
+            for(;;){
+                if(row >= 1 && row <=n && col >=1 && col <=n){
+                    break;;
+                }
+                else{
+                    printf("Re enter your move Row col - please add space :");
+                    scanf("%d %d",&row, &col);
+                }
+            }
+
+         if(!makemove(n, board, row - 1, col - 1, currentPlayer)) {
+                printf("Cell already taken. Try again.\n");
+            }
+            logMove(f, currentPlayer, row, col);
+        }
+            else {
+                computerMove(n, board,currentPlayer, f);
+            }
+        if(checkwin(n, board, currentPlayer)) {
+            showboard(n, board);
+            printf("Player %c wins!\n",currentPlayer);
+
+            game_over = 0;
+        }
+
+        else if(checkdraw(n, board)) {
+            showboard(n, board);
+            printf("It's a draw!\n");
+            game_over = 0;
+         } else {
+            turn++;
+            if (turn > 2)
+             turn = 0;  //cheack the turn of player
+        }
+    }
 }
 	//Show board in display function
 void showboard(int n , char board[n][n]) {
