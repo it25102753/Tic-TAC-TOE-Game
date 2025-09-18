@@ -48,6 +48,13 @@ int main()  {
         char currentplayer  = 'X';
         int row, col;
         int game_over = 1;
+        
+      //filling the board with space
+    for(i = 0; i < n; i++)   {
+        for(j = 0; j < n; j++) {
+            board[i][j] = ' ';
+             }
+        }
 
     while(game_over){
         showboard(n, board);
@@ -110,7 +117,12 @@ int main()  {
         char currentplayer  = 'X';
         int row, col;
         int game_over = 1;
-        
+       //filling the board with space
+    for(i = 0; i < n; i++)   {
+        for(j = 0; j < n; j++) {
+            board[i][j] = ' ';
+             }
+        }
 
         while(game_over){
             showboard(n, board);
@@ -177,7 +189,7 @@ int main()  {
     }
 
     char board[n][n];
-
+   //filling the board with space
     for(i = 0; i < n; i++)   {
         for(j = 0; j < n; j++) {
             board[i][j] = ' ';
