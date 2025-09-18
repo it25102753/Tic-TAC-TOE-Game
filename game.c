@@ -11,25 +11,27 @@ void logMove(FILE *f, char player, int row, int col);
 
 
 int main()  {
-    int ch;
+    int choice;
     int n;
+    printf("\n");
     printf("user  vs user game - 1\n");
     printf("Player vs computer - 2 \n");
     printf("Multi player       - 3 \n");
     printf(" \n");
     printf("Enter your  choice : ");
-    scanf("%d", &ch);
+    scanf("%d", &choice);
 
         for(;;){
-        if(ch >= 1 && ch <= 3){
+        if(choice >= 1 && choice <= 3){
                 break;
             } else {
-                printf("re - Enter your  choice : ");
-                scanf("%d", &ch);
+                printf("Re - Enter your  choice : ");
+                scanf("%d", &choice);
             }
         }
     //user vs user game code
-    if(ch == 1){
+    if(choice == 1){
+        printf("\n");
         printf("Enter the board size 3 -10 :");
         scanf("%d",&n);
     
@@ -58,13 +60,13 @@ int main()  {
 
     while(game_over){
         showboard(n, board);
-        FILE *f = fopen("game_log_user_vs_User.txt", "w");
+        FILE *f = fopen("game_(user_vs_User).txt", "w");
 
         printf("player %c enter your move row col - please add space : ",currentplayer);
         scanf("%d %d",&row,&col);
 
         for(;;){
-            if(row >= 1 && row <= n && col <=1,col <= n){
+            if(row >= 1 && row <= n && col >=1 && col <= n){
                 break;
             } else {
                 printf("player %c Re - enter your move row col - please add space : ",currentplayer);
@@ -73,6 +75,7 @@ int main()  {
         }
 
         if(!makemove(n, board, row -1,col-1,currentplayer)){
+            printf("\n");
             printf("sell already taken Try again.\n");
             continue;
         }
@@ -100,8 +103,9 @@ int main()  {
     }
 
     //player vs computer game code
-    if(ch == 2){
-	        printf("Enter the board size 3 -10 :");
+    if(choice == 2){
+          printf("\n");
+	printf("Enter the board size 3 -10 :");
         scanf("%d",&n);
 
         for(;;){
@@ -126,13 +130,13 @@ int main()  {
 
         while(game_over){
             showboard(n, board);
-            FILE *f = fopen("game_log_user_vs_computer.txt", "w");
-            
-            printf("enter your move row col - please add space : ");
+            FILE *f = fopen("game_(user_vs_computer).txt", "w"); 
+            if(currentplayer == 'X'){
+            printf("Enter your move row col - please add space : ");
             scanf("%d %d",&row,&col);
 
             for(;;){
-                if(row >= 1 && row <= n && col <=1,col <= n){
+                if(row >= 1 && row <= n && col >=1 && col <= n){
                     break;
                 } else {
                     printf("Re - enter your move row col - please add space : ");
@@ -144,6 +148,9 @@ int main()  {
                 printf("sell already taken try again \n");
                 continue;
             }
+          }else {
+              computerMove(n, board,  currentplayer, f);
+              }
             if(checkwin(n,board,currentplayer)){
                 showboard(n,board);
                 printf("palyer %c win the game \n",currentplayer);
@@ -165,7 +172,7 @@ int main()  {
     }
 
     //multi player game code
-    if(ch == 3){
+    if(choice == 3){
     int n;
     int i,j;
 
@@ -173,7 +180,7 @@ int main()  {
     #define PLAYER2 'O'
     #define PLAYER3 'Z'
 
-        
+   printf("\n");     
     printf("Enter  the board size (3 to %d): ",10);
     scanf("%d",&n);
 
@@ -255,7 +262,7 @@ void showboard(int n , char board[n][n]) {
     printf("\n");
     for(i=0;i<n;i++){
         for(j=0;j<n;j++){
-            printf("%c",board[i][j]);
+            printf(" %c ",board[i][j]);
             if(j<n-1)
             printf("|");
         }
@@ -267,8 +274,8 @@ void showboard(int n , char board[n][n]) {
             }
             printf("\n");
         }
-    printf("\n");
     }
+    printf("\n");
 }
     //palyers move draw function
 int makemove(int n, char board[n][n], int row, int col, char player){
@@ -336,11 +343,11 @@ int checkdraw(int n, char board[n][n]){
     for(i =0;i<n;i++){
         for(j=0;j<n;j++){
             if(board[i][j] == ' '){
-            return 1;
+            return 0;
              }
         }
     }
-    return 0;
+    return 1;
 }
 
 //get computer move function
