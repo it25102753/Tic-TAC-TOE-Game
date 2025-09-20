@@ -207,7 +207,9 @@ int main()  {
     int turn = 0;
     int row, col;
     int game_over =1;
-
+    
+    while(game_over){
+    showboard(n, board);
     char currentPlayer;
         if (turn == 0)
             currentPlayer = PLAYER1;
@@ -217,7 +219,7 @@ int main()  {
             currentPlayer = PLAYER3;
 
         if(currentPlayer == PLAYER1){
-            printf("Player %c, enter your move row col - please add space ", currentPlayer);
+            printf("Player %c, enter your move row col - please add space : ", currentPlayer);
             scanf("%d %d",&row,&col);
 
             for(;;){
@@ -230,8 +232,12 @@ int main()  {
                 }
             }
 
+
          if(!makemove(n, board, row - 1, col - 1, currentPlayer)) {
+                
+                printf("\n");
                 printf("Cell already taken. Try again.\n");
+                continue;
             }
             logMove(f, currentPlayer, row, col);
         }
@@ -254,6 +260,7 @@ int main()  {
             if (turn > 2)
              turn = 0;  //cheack the turn of player
         }
+      }
     }
 }
 	//Show board in display function
