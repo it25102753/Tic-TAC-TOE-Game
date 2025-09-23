@@ -34,7 +34,7 @@ int main()  {
         printf("\n");
         printf("Enter the board size 3 -10 :");
         scanf("%d",&n);
-    
+
         for(;;){
             if(n >= 3 && n <= 10){
                 break;
@@ -50,17 +50,16 @@ int main()  {
         char currentplayer  = 'X';
         int row, col;
         int game_over = 1;
-        
+
       //filling the board with space
     for(i = 0; i < n; i++)   {
         for(j = 0; j < n; j++) {
             board[i][j] = ' ';
              }
         }
-
+        FILE *f = fopen("game_(user_vs_User).txt", "w");
     while(game_over){
         showboard(n, board);
-        FILE *f = fopen("game_(user_vs_User).txt", "w");
 
         printf("player %c enter your move row col - please add space : ",currentplayer);
         scanf("%d %d",&row,&col);
@@ -84,6 +83,7 @@ int main()  {
         if(checkwin(n, board, currentplayer)){
             showboard(n, board);
             printf("player %c win the game \n",currentplayer);
+            fprintf(f,"Player %c is Win the game \n",currentplayer);
             game_over = 0;
         } else if(checkdraw(n,board)){
             showboard(n,board);
@@ -96,9 +96,10 @@ int main()  {
         } else {
             currentplayer = 'X';
         }
-        fclose(f);
-        }
+    }
         return 0;
+
+        fclose(f);
 
     }
 
@@ -127,10 +128,10 @@ int main()  {
             board[i][j] = ' ';
              }
         }
-
+    FILE *f = fopen("game_(user_vs_computer).txt", "w");
         while(game_over){
             showboard(n, board);
-            FILE *f = fopen("game_(user_vs_computer).txt", "w"); 
+
             if(currentplayer == 'X'){
             printf("Enter your move row col - please add space : ");
             scanf("%d %d",&row,&col);
@@ -148,12 +149,16 @@ int main()  {
                 printf("sell already taken try again \n");
                 continue;
             }
+
+            logMove(f,currentplayer,row,col);
+
           }else {
               computerMove(n, board,  currentplayer, f);
               }
             if(checkwin(n,board,currentplayer)){
                 showboard(n,board);
                 printf("palyer %c win the game \n",currentplayer);
+                fprintf(f,"Player %c is Win the game \n",currentplayer);
                 game_over = 0;
             }
              else if(checkdraw(n, board)) {
@@ -169,6 +174,7 @@ int main()  {
                 }
             }
         }
+        fclose(f);
     }
 
     //multi player game code
@@ -180,7 +186,7 @@ int main()  {
     #define PLAYER2 'O'
     #define PLAYER3 'Z'
 
-   printf("\n");     
+   printf("\n");
     printf("Enter  the board size (3 to %d): ",10);
     scanf("%d",&n);
 
@@ -207,7 +213,7 @@ int main()  {
     int turn = 0;
     int row, col;
     int game_over =1;
-    
+
     while(game_over){
     showboard(n, board);
     char currentPlayer;
@@ -234,7 +240,7 @@ int main()  {
 
 
          if(!makemove(n, board, row - 1, col - 1, currentPlayer)) {
-                
+
                 printf("\n");
                 printf("Cell already taken. Try again.\n");
                 continue;
@@ -247,7 +253,7 @@ int main()  {
         if(checkwin(n, board, currentPlayer)) {
             showboard(n, board);
             printf("Player %c wins!\n",currentPlayer);
-
+            fprintf(f,"Player %c is Win the game \n",currentPlayer);
             game_over = 0;
         }
 
@@ -261,6 +267,7 @@ int main()  {
              turn = 0;  //cheack the turn of player
         }
       }
+      fclose(f);
     }
 }
 	//Show board in display function
@@ -298,7 +305,7 @@ int makemove(int n, char board[n][n], int row, int col, char player){
 int checkwin(int n, char board[n][n], char player){
     int win;
     int i,j;
-    //check rows 
+    //check rows
     for( i=0;i<n;i++){
         win =1;
          for (int j =0;j<n;j++){
@@ -312,7 +319,7 @@ int checkwin(int n, char board[n][n], char player){
     //check coloms
     for(j=0;j<n;j++){
         win =1;
-        
+
         for(int i=0;i<n;i++){
             if(board[i][j] != player)
                 win =0;
@@ -340,11 +347,11 @@ int checkwin(int n, char board[n][n], char player){
         return 1;
     }
 
-    //cheack No one is win 
+    //cheack No one is win
     return 0;
-} 
+}
 
-    //check game is draw 
+    //check game is draw
 int checkdraw(int n, char board[n][n]){
     int i,j;
     for(i =0;i<n;i++){
@@ -366,12 +373,14 @@ void computerMove(int n, char board[n][n], char player, FILE *f){
     for(;;)
     if(board[row][col] == ' '){
         board[row][col] = player;
+        fprintf(f,"Player %c is move ---- (%d,%d)\n",player,row,col);
         break;
     } else{
         row = rand() % n;
         col = rand() % n;
 
-    } 
+    }
+
 
 }
 //create fuction for Record every valid move
