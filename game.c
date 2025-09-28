@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void showboard(int n, char board[n][n]);
-int makemove(int n, char board[n][n], int row, int col, char player);
-int checkwin(int n, char board[n][n], char player);
-int checkdraw(int n, char board[n][n]);
-void computerMove(int n, char board[n][n], char player, FILE *f);
+//Function declarations
+void showboard(int n, char **board);
+int makemove(int n, char **board, int row, int col, char player);
+int checkwin(int n, char **board, char player);
+int checkdraw(int n, char **board);
+void computerMove(int n, char **board, char player, FILE *f);
 void logMove(FILE *f, char player, int row, int col);
 
 
@@ -13,7 +14,7 @@ void logMove(FILE *f, char player, int row, int col);
 int main()  {
     int choice;
     int n;
-    printf("\n");
+    printf("\n"); //get game type usr going to play 
     printf("user  vs user game - 1\n");
     printf("Player vs computer - 2 \n");
     printf("Multi player       - 3 \n");
@@ -23,8 +24,8 @@ int main()  {
 
         for(;;){
         if(choice >= 1 && choice <= 3){
-                break;
-            } else {
+                break;  
+            } else {                    //cheack input are valid 
                 printf("Re - Enter your  choice : ");
                 scanf("%d", &choice);
             }
@@ -35,6 +36,7 @@ int main()  {
         printf("Enter the board size 3 -10 :");
         scanf("%d",&n);
 
+        //cheack input are valid 
         for(;;){
             if(n >= 3 && n <= 10){
                 break;
@@ -43,8 +45,11 @@ int main()  {
                 scanf("%d", &n);
             }
         }
+             // Dynamically  memory allocate 
+        char **board = malloc(n * sizeof(char*));
+         for (int i = 0; i < n; i++)
+             board[i] = malloc(n * sizeof(char));
 
-        char board[n][n];
         int i, j;
 
         char currentplayer  = 'X';
@@ -57,13 +62,14 @@ int main()  {
             board[i][j] = ' ';
              }
         }
-        FILE *f = fopen("game_(user_vs_User).txt", "w");
+        FILE *f = fopen("game_(user_vs_User).txt", "w"); //Open log file
     while(game_over){
         showboard(n, board);
 
         printf("player %c enter your move row col - please add space : ",currentplayer);
         scanf("%d %d",&row,&col);
 
+        //cheack input are valid 
         for(;;){
             if(row >= 1 && row <= n && col >=1 && col <= n){
                 break;
@@ -78,15 +84,16 @@ int main()  {
             printf("sell already taken Try again.\n");
             continue;
         }
-
+        //print movement in log file
         logMove(f,currentplayer,row,col);
-        if(checkwin(n, board, currentplayer)){
+
+        if(checkwin(n, board, currentplayer)){ //check game is win
             showboard(n, board);
             printf("player %c win the game \n",currentplayer);
             fprintf(f,"Player %c is Win the game \n",currentplayer);
             game_over = 0;
         } else if(checkdraw(n,board)){
-            showboard(n,board);
+            showboard(n,board);       //check game is draw
             printf("game is draw \n");
             game_over = 0;
 
@@ -97,9 +104,8 @@ int main()  {
             currentplayer = 'X';
         }
     }
+      fclose(f);
         return 0;
-
-        fclose(f);
 
     }
 
@@ -109,6 +115,7 @@ int main()  {
 	printf("Enter the board size 3 -10 :");
         scanf("%d",&n);
 
+        //cheack input are valid 
         for(;;){
             if(n >= 3 && n <= 10){
                 break;
@@ -117,18 +124,23 @@ int main()  {
                 scanf("%d", &n);
             }
         }
-        char board[n][n];
+         // Dynamically  memory allocate 
+        char **board = malloc(n * sizeof(char*));
+         for (int i = 0; i < n; i++)
+             board[i] = malloc(n * sizeof(char));
+
         int i, j;
         char currentplayer  = 'X';
         int row, col;
         int game_over = 1;
+
        //filling the board with space
     for(i = 0; i < n; i++)   {
         for(j = 0; j < n; j++) {
             board[i][j] = ' ';
              }
         }
-    FILE *f = fopen("game_(user_vs_computer).txt", "w");
+    FILE *f = fopen("game_(user_vs_computer).txt", "w"); //Open log file
         while(game_over){
             showboard(n, board);
 
@@ -136,6 +148,7 @@ int main()  {
             printf("Enter your move row col - please add space : ");
             scanf("%d %d",&row,&col);
 
+                //cheack input are valid 
             for(;;){
                 if(row >= 1 && row <= n && col >=1 && col <= n){
                     break;
@@ -150,22 +163,24 @@ int main()  {
                 continue;
             }
 
+            //print movement in log file
             logMove(f,currentplayer,row,col);
 
           }else {
               computerMove(n, board,  currentplayer, f);
               }
-            if(checkwin(n,board,currentplayer)){
+            if(checkwin(n,board,currentplayer)){ //check game is win
                 showboard(n,board);
                 printf("palyer %c win the game \n",currentplayer);
                 fprintf(f,"Player %c is Win the game \n",currentplayer);
                 game_over = 0;
             }
              else if(checkdraw(n, board)) {
-            showboard(n,board);
+            showboard(n,board);         //check game is draw
             printf("It's  a draw!\n");
             game_over = 0;
                  } else {
+
             //change the_player
                 if(currentplayer == 'X'){
                     currentplayer = 'O';
@@ -187,9 +202,10 @@ int main()  {
     #define PLAYER3 'Z'
 
    printf("\n");
-    printf("Enter  the board size (3 to %d): ",10);
+    printf("Enter  the board size (3 to 10): ");
     scanf("%d",&n);
 
+        //cheack input are valid 
     for(;;){
         if(n >=3 && n <= 10){
             break;
@@ -200,15 +216,43 @@ int main()  {
             scanf("%d",&n);
         }
     }
+      // Dynamically  memory allocate 
+    char **board = malloc(n * sizeof(char*));
+         for (int i = 0; i < n; i++)
+             board[i] = malloc(n * sizeof(char));
 
-    char board[n][n];
    //filling the board with space
     for(i = 0; i < n; i++)   {
         for(j = 0; j < n; j++) {
             board[i][j] = ' ';
              }
         }
-    FILE *f = fopen("game_log_multi_ply.txt", "w");
+    FILE *f = fopen("game_log_multi_ply.txt", "w"); //Open log file
+
+    // Player role setup
+    int playerType[3]; // 0 = human, 1 = computer
+
+    printf("\nConfigure  players:\n");
+    printf("Player %c (0 = Human, 1 = Computer): ", PLAYER1);
+    scanf("%d", &playerType[0]);
+    printf("Player %c (0 = Human, 1 = Computer): ", PLAYER2);
+    scanf("%d", &playerType[1]);
+    printf("Player %c (0 = Human, 1 = Computer): ", PLAYER3);
+    scanf("%d", &playerType[2]);
+
+        //check At least one is  human user
+    while(playerType[0] == 1 && playerType[1] == 1 && playerType[2] == 1){
+    printf("\n");
+    printf("At least one player must be human!\n");
+    printf("\n\n");
+    printf("Player %c (0 = Human, 1 = Computer): ", PLAYER1);
+    scanf("%d", &playerType[0]);
+    printf("Player %c (0 = Human, 1 = Computer): ", PLAYER2);
+    scanf("%d", &playerType[1]);
+    printf("Player %c (0 = Human, 1 = Computer): ", PLAYER3);
+    scanf("%d", &playerType[2]);
+    }
+
 
     int turn = 0;
     int row, col;
@@ -217,17 +261,16 @@ int main()  {
     while(game_over){
     showboard(n, board);
     char currentPlayer;
-        if (turn == 0)
-            currentPlayer = PLAYER1;
-        if(turn == 1)
-            currentPlayer = PLAYER2;
-        if(turn == 2)
-            currentPlayer = PLAYER3;
 
-        if(currentPlayer == PLAYER1){
+        if(turn == 0)      currentPlayer = PLAYER1;
+        else if(turn == 1) currentPlayer = PLAYER2;
+        else               currentPlayer = PLAYER3;
+
+        if(playerType[turn] == 0){
             printf("Player %c, enter your move row col - please add space : ", currentPlayer);
             scanf("%d %d",&row,&col);
 
+            //cheack input are valid 
             for(;;){
                 if(row >= 1 && row <=n && col >=1 && col <=n){
                     break;;
@@ -240,24 +283,25 @@ int main()  {
 
 
          if(!makemove(n, board, row - 1, col - 1, currentPlayer)) {
-
                 printf("\n");
                 printf("Cell already taken. Try again.\n");
                 continue;
             }
+
+            //print movement in log file
             logMove(f, currentPlayer, row, col);
         }
             else {
                 computerMove(n, board,currentPlayer, f);
             }
-        if(checkwin(n, board, currentPlayer)) {
+        if(checkwin(n, board, currentPlayer)) {  //check game is win
             showboard(n, board);
             printf("Player %c wins!\n",currentPlayer);
             fprintf(f,"Player %c is Win the game \n",currentPlayer);
             game_over = 0;
         }
 
-        else if(checkdraw(n, board)) {
+        else if(checkdraw(n, board)) {  //check game is draw
             showboard(n, board);
             printf("It's a draw!\n");
             game_over = 0;
@@ -271,7 +315,7 @@ int main()  {
     }
 }
 	//Show board in display function
-void showboard(int n , char board[n][n]) {
+void showboard(int n , char **board) {
     int i , j;
     printf("\n");
     for(i=0;i<n;i++){
@@ -292,7 +336,7 @@ void showboard(int n , char board[n][n]) {
     printf("\n");
 }
     //palyers move draw function
-int makemove(int n, char board[n][n], int row, int col, char player){
+int makemove(int n, char **board, int row, int col, char player){
     if(board[row][col]== ' '){
         board[row][col]= player;
         return 1;
@@ -302,7 +346,7 @@ int makemove(int n, char board[n][n], int row, int col, char player){
 
 
     //win check function
-int checkwin(int n, char board[n][n], char player){
+int checkwin(int n, char **board, char player){
     int win;
     int i,j;
     //check rows
@@ -352,7 +396,7 @@ int checkwin(int n, char board[n][n], char player){
 }
 
     //check game is draw
-int checkdraw(int n, char board[n][n]){
+int checkdraw(int n, char **board){
     int i,j;
     for(i =0;i<n;i++){
         for(j=0;j<n;j++){
@@ -366,14 +410,15 @@ int checkdraw(int n, char board[n][n]){
 
 //get computer move function
 
-void computerMove(int n, char board[n][n], char player, FILE *f){
+void computerMove(int n, char **board, char player, FILE *f){
     int row,col;
     row = rand() % n;
     col = rand() % n;
     for(;;)
     if(board[row][col] == ' '){
         board[row][col] = player;
-        fprintf(f,"Player %c is move ---- (%d,%d)\n",player,row,col);
+        printf("Computer Player %c is move ---- (%d - %d)\n",player,row+1,col+1);
+        fprintf(f,"Player %c is move ---- (%d,%d)\n",player,row+1,col+1);
         break;
     } else{
         row = rand() % n;
@@ -383,7 +428,7 @@ void computerMove(int n, char board[n][n], char player, FILE *f){
 
 
 }
-//create fuction for Record every valid move
+//fuction for Record every valid move in txt file
 void logMove(FILE *f, char player, int row, int col){
     fprintf(f,"Player %c is move ---- (%d,%d)\n",player,row,col);
 }
