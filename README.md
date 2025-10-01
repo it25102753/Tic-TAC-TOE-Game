@@ -32,11 +32,9 @@
     <li>Clone the repository:</li>
     <pre><code>git clone https://github.com/it25102753/Tic-TAC-TOE-Game.git</code></pre>
     <li>Navigate into the project folder:</li>
-    <pre><code>cd Tic-Tac-Toe-Game</code></pre>
-    <li>Compile the code:</li>
-    <pre><code>gcc tic_tac_toe.c -o tic_tac_toe</code></pre>
+    <pre><code>cd Tic-TAC-TOE-Game</code></pre>
     <li>Run the game:</li>
-    <pre><code>./tic_tac_toe</code></pre>
+    <pre><code>./game.o</code></pre>
   </ol>
 
   <h2>📌 Notes</h2>
@@ -49,6 +47,9 @@
     Made with ❤️ in C
   </footer>
 <h4>Shenol disanayaka</h4>
-</body>
+  <p>
+    <img src="https://images.seeklogo.com/logo-png/61/1/sliit-campus-logo-png_seeklogo-611785.png
+    " 
+         alt="Tic Tac Toe Board" width="150" style="margin: 10px; border: 1px solid #ccc; border-radius: 8px;">
+  </p>
 </html>
-

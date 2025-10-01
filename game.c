@@ -95,6 +95,7 @@ int main()  {
         } else if(checkdraw(n,board)){
             showboard(n,board);       //check game is draw
             printf("game is draw \n");
+            fprintf(f,"Game is draw \n");
             game_over = 0;
 
         }
@@ -178,6 +179,7 @@ int main()  {
              else if(checkdraw(n, board)) {
             showboard(n,board);         //check game is draw
             printf("It's  a draw!\n");
+            fprintf(f,"Game is draw \n");
             game_over = 0;
                  } else {
 
@@ -304,6 +306,7 @@ int main()  {
         else if(checkdraw(n, board)) {  //check game is draw
             showboard(n, board);
             printf("It's a draw!\n");
+            fprintf(f,"Game is draw \n");
             game_over = 0;
          } else {
             turn++;
