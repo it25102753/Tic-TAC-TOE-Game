@@ -48,8 +48,6 @@
   </footer>
 <h4>Shenol disanayaka</h4>
   <p>
-    <img src="https://images.seeklogo.com/logo-png/61/1/sliit-campus-logo-png_seeklogo-611785.png
-    " 
-         alt="Tic Tac Toe Board" width="150" style="margin: 10px; border: 1px solid #ccc; border-radius: 8px;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/New_Logo_of_SLIIT.png" alt="SLIIT Logo" width="350">
   </p>
 </html>

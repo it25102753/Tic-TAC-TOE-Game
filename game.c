@@ -106,6 +106,11 @@ int main()  {
         }
     }
       fclose(f);
+    // Free allocated memory
+    for(int i = 0; i < n; i++) {
+        free(board[i]);
+    }
+    free(board);
         return 0;
 
     }
@@ -192,7 +197,13 @@ int main()  {
             }
         }
         fclose(f);
+    // Free allocated memory
+    for(int i = 0; i < n; i++) {
+        free(board[i]);
     }
+    free(board);
+    return 0;
+}
 
     //multi player game code
     if(choice == 3){
@@ -315,6 +326,11 @@ int main()  {
         }
       }
       fclose(f);
+      // Free allocated memory
+    for(int i = 0; i < n; i++) {
+        free(board[i]);
+    }
+        free(board);
     }
 }
 	//Show board in display function
