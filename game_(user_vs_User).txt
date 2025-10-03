@@ -1,8 +1,6 @@
 Player X is move ---- (1,1)
 Player O is move ---- (1,2)
-Player X is move ---- (1,3)
-Player O is move ---- (2,1)
-Player X is move ---- (2,2)
-Player O is move ---- (3,1)
-Player X is move ---- (3,3)
+Player X is move ---- (2,1)
+Player O is move ---- (2,3)
+Player X is move ---- (3,1)
 Player X is Win the game 
