@@ -333,26 +333,40 @@ int main()  {
         free(board);
     }
 }
-	//Show board in display function
-void showboard(int n , char **board) {
-    int i , j;
+//Show board in display function
+void showboard(int n, char **board) {
     printf("\n");
-    for(i=0;i<n;i++){
-        for(j=0;j<n;j++){
-            printf(" %c ",board[i][j]);
-            if(j<n-1)
-            printf("|");
-        }
-        printf("\n");
-
-        if(i<n-1){
-            for(j=0;j<n;j++){
-            printf("----");
-            }
-            printf("\n");
-        }
+    
+    // Print column headers with better spacing
+    printf("    ");
+    for (int j = 0; j < n; j++) {
+        printf(" %d  ", j + 1);
     }
     printf("\n");
+    
+    // Print board with row numbers
+    for (int i = 0; i < n; i++) {
+        // Print horizontal line
+        printf("   ");
+        for (int j = 0; j < n; j++) {
+            printf("----");
+        }
+        printf("\n");
+        
+        // Print row with data
+        printf(" %d ", i + 1);
+        for (int j = 0; j < n; j++) {
+            printf("| %c ", board[i][j]);
+        }
+        printf("|\n");
+    }
+    
+    // Print bottom border
+    printf("   ");
+    for (int j = 0; j < n; j++) {
+        printf("----");
+    }
+    printf("\n\n");
 }
     //palyers move draw function
 int makemove(int n, char **board, int row, int col, char player){
